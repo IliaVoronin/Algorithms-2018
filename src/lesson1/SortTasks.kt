@@ -2,6 +2,8 @@
 
 package lesson1
 
+import java.io.File
+
 /**
  * Сортировка времён
  *
@@ -31,7 +33,20 @@ package lesson1
  * В случае обнаружения неверного формата файла бросить любое исключение.
  */
 fun sortTimes(inputName: String, outputName: String) {
-    TODO()
+    val inputData = File(inputName).readLines()
+    val bw = File(outputName).bufferedWriter()
+    val inputInt = mutableListOf<Int>()
+    for (i in 0 until inputData.size) {
+        val elems = inputData[i].split(":")
+        inputInt.add(elems[0].toInt() * 3600 + elems[1].toInt() * 60 + elems[2].toInt())
+    }
+    val inputIntMass = inputInt.toIntArray()
+    insertionSort(inputIntMass)
+    for (i in 0 until inputInt.size) {
+        bw.write(String.format("%02d:%02d:%02d", inputIntMass[i] / 3600, inputIntMass[i] % 3600 / 60, inputIntMass[i] % 60))
+        bw.newLine()
+    }
+    bw.close()
 }
 
 /**
@@ -58,7 +73,7 @@ fun sortTimes(inputName: String, outputName: String) {
  * Железнодорожная 7 - Иванов Алексей, Иванов Михаил
  * Садовая 5 - Сидоров Петр, Сидорова Мария
  *
- * В случае обнаружения неверного формата файла бросить любое исключение.
+ * В случае обнаружения неверного формата файла бросить любое исключение./
  */
 fun sortAddresses(inputName: String, outputName: String) {
     TODO()
@@ -94,9 +109,37 @@ fun sortAddresses(inputName: String, outputName: String) {
  * 99.5
  * 121.3
  */
+
+
 fun sortTemperatures(inputName: String, outputName: String) {
-    TODO()
+    /*
+    val inputData = File(inputName).readLines()
+    val bw = File(outputName).bufferedWriter()
+    val inputInt = mutableListOf<Int>()
+
+    var min = 8000
+
+    for (i in 0 until inputData.size) {
+        val newInt = (inputData[i].toDouble() * 10).toInt()
+        if (newInt < min) min = newInt
+        inputInt.add(newInt)
+    }
+
+    min *= (-1)
+    for (i in 0 until inputInt.size) {
+        inputInt[i] = inputInt[i] + min
+    }
+
+    val inputIntArr = properCountingSort(inputInt.toIntArray(), 8000)
+
+    for (i in 0 until inputIntArr.size) {
+        bw.write(((inputIntArr[i] - min).toDouble() / 10).toString())
+        bw.newLine()
+    }
+    bw.close()
+    */
 }
+
 
 /**
  * Сортировка последовательности
@@ -146,6 +189,9 @@ fun sortSequence(inputName: String, outputName: String) {
  * Результат: second = [1 3 4 9 9 13 15 20 23 28]
  */
 fun <T : Comparable<T>> mergeArrays(first: Array<T>, second: Array<T?>) {
-    TODO()
+    for (i in 0 until first.size) {
+        second[i] = first[i]
+    }
+    second.sort()
 }
 
