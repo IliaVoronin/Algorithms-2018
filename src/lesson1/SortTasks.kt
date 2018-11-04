@@ -76,9 +76,33 @@ fun sortTimes(inputName: String, outputName: String) {
  * В случае обнаружения неверного формата файла бросить любое исключение./
  */
 fun sortAddresses(inputName: String, outputName: String) {
-    TODO()
-}
+    val lines = File(inputName).readLines()
+    val bw = File(outputName).bufferedWriter()
+    val treeMap = TreeMap<String, MutableList<String>>()
 
+    for (line in lines) {
+        val newList = line.split("-")
+        val name = newList[0].trim()
+        val address = newList[1].trim()
+
+        if (treeMap.containsKey(address)) {
+            treeMap[address]!!.add(name)
+        } else {
+            val nameList = mutableListOf<String>()
+            nameList.add(name)
+            treeMap[address] = nameList
+        }
+    }
+
+    for (address in treeMap.keys) {
+        var names = treeMap[address].toString()
+        names = names.substring(1, names.length - 1)
+        bw.write("$address - $names")
+        bw.newLine()
+    }
+
+    bw.close()
+}
 /**
  * Сортировка температур
  *
