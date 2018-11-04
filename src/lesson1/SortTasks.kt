@@ -112,32 +112,19 @@ fun sortAddresses(inputName: String, outputName: String) {
 
 
 fun sortTemperatures(inputName: String, outputName: String) {
-    /*
     val inputData = File(inputName).readLines()
     val bw = File(outputName).bufferedWriter()
-    val inputInt = mutableListOf<Int>()
-
-    var min = 8000
-
+    val inputDouble = mutableListOf<Double>()
     for (i in 0 until inputData.size) {
-        val newInt = (inputData[i].toDouble() * 10).toInt()
-        if (newInt < min) min = newInt
-        inputInt.add(newInt)
+        val newInt = inputData[i].toDouble()
+        inputDouble.add(newInt)
     }
-
-    min *= (-1)
-    for (i in 0 until inputInt.size) {
-        inputInt[i] = inputInt[i] + min
-    }
-
-    val inputIntArr = properCountingSort(inputInt.toIntArray(), 8000)
-
-    for (i in 0 until inputIntArr.size) {
-        bw.write(((inputIntArr[i] - min).toDouble() / 10).toString())
+    inputDouble.sort()
+    for (i in 0 until inputDouble.size) {
+        bw.write(inputDouble[i].toString())
         bw.newLine()
     }
     bw.close()
-    */
 }
 
 
