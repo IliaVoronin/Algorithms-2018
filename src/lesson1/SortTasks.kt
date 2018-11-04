@@ -116,8 +116,8 @@ fun sortTemperatures(inputName: String, outputName: String) {
     val bw = File(outputName).bufferedWriter()
     val inputDouble = mutableListOf<Double>()
     for (i in 0 until inputData.size) {
-        val newInt = inputData[i].toDouble()
-        inputDouble.add(newInt)
+        val newDouble = inputData[i].toDouble()
+        inputDouble.add(newDouble)
     }
     inputDouble.sort()
     for (i in 0 until inputDouble.size) {
