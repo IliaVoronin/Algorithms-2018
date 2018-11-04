@@ -2,6 +2,8 @@
 
 package lesson2
 
+import java.io.File
+
 /**
  * Получение наибольшей прибыли (она же -- поиск максимального подмассива)
  * Простая
@@ -26,9 +28,28 @@ package lesson2
  *
  * В случае обнаружения неверного формата файла бросить любое исключение.
  */
+
 fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
-    TODO()
+    val lines = File(inputName).readLines()
+    var maxIncome = 0
+    var minPrice = Integer.MAX_VALUE
+    var minIndex = 0
+    var maxIndex = 0
+    var temp = 0
+
+    for (i in 0 until lines.size) {
+        if (lines[i].toInt() < minPrice) {
+            minPrice = lines[i].toInt()
+            temp = i
+        } else if (lines[i].toInt() - minPrice > maxIncome) {
+            maxIncome = lines[i].toInt() - minPrice
+            minIndex = temp
+            maxIndex = i
+        }
+    }
+    return Pair(minIndex + 1, maxIndex + 1)
 }
+
 
 /**
  * Задача Иосифа Флафия.
@@ -77,7 +98,16 @@ fun optimizeBuyAndSell(inputName: String): Pair<Int, Int> {
  * Х х Х
  */
 fun josephTask(menNumber: Int, choiceInterval: Int): Int {
-    TODO()
+    return when (choiceInterval) {
+        1 -> menNumber
+        2 -> 1
+        else -> func(menNumber, choiceInterval) + 1
+    }
+}
+
+fun func(n: Int, k: Int): Int {
+    return if (n == 1) 0
+    else (func(n - 1, k) + k) % n
 }
 
 /**
@@ -106,8 +136,30 @@ fun longestCommonSubstring(first: String, second: String): String {
  * Единица простым числом не считается.
  */
 fun calcPrimesNumber(limit: Int): Int {
-    TODO()
+    if (limit <= 1) return 0
+    val s = IntArray(limit + 1)
+    s[1] = 0
+    for (i in 2..limit) s[i] = 1
+
+    var k = 2
+    while (k * k <= limit) {
+        if (s[k] == 1) {
+            var l = k * k
+            while (l <= limit) {
+                s[l] = 0
+                l += k
+            }
+        }
+        k++
+    }
+
+    var count = 0
+    for (i in 0..limit) {
+        if (s[i] == 1) count++
+    }
+    return count
 }
+
 
 /**
  * Балда
