@@ -138,23 +138,20 @@ fun longestCommonSubstring(first: String, second: String): String {
 fun calcPrimesNumber(limit: Int): Int {
     if (limit <= 1) return 0
     val s = IntArray(limit + 1)
-    s[1] = 0
     for (i in 2..limit) s[i] = 1
-
-    var k = 2
-    while (k * k <= limit) {
-        if (s[k] == 1) {
-            var l = k * k
+    var i = 2
+    while (i * i <= limit) {
+        if (s[i] == 1) {
+            var l = i * i
             while (l <= limit) {
                 s[l] = 0
-                l += k
+                l += i
             }
         }
-        k++
+        i++
     }
-
     var count = 0
-    for (i in 0..limit) {
+    for (i in 2..limit) {
         if (s[i] == 1) count++
     }
     return count
