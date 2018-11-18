@@ -11,7 +11,7 @@ import java.util.*;
 public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implements CheckableSortedSet<T> {
 
     private static class Node<T> {
-        final T value;
+        T value;
 
         Node<T> left = null;
 
@@ -66,8 +66,43 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      */
     @Override
     public boolean remove(Object o) {
-        // TODO
-        throw new NotImplementedError();
+        T t = (T) o;
+        Node<T> res = remove(root, t);
+        size--;
+        return (res != null);
+    }
+
+    private Node<T> remove(Node<T> node, T z) {
+        if (!contains(z)) throw new NoSuchElementException();
+        if (node == null) return null;
+        int comparison = z.compareTo(node.value);
+
+        if (comparison < 0) {
+            node.left = remove(node.left, z);
+        } else if (comparison > 0) {
+            node.right = remove(node.right, z);
+        }  else if (node.right != null) {
+            node.value = min(node.right).value;
+            node.right = remove(node.right, node.value);
+        } else {
+            if (node.left != null) {
+                node.value = max(node.left).value;
+                node.left = remove(node.left, node.value);
+            } else {
+                node = null;
+            }
+        }
+        return node;
+    }
+
+    private Node<T> min(Node<T> node) {
+        if (node.left == null) return node;
+        return min(node.left);
+    }
+
+    private Node<T> max(Node<T> node) {
+        if (node.right == null) return node;
+        return max(node.right);
     }
 
     @Override
@@ -109,8 +144,31 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          * Средняя
          */
         private Node<T> findNext() {
-            // TODO
-            throw new NotImplementedError();
+           Node<T> currentNode;
+           Node<T> outputNode = null;
+
+           if (current != null) {
+               currentNode = root;
+           } else return min();
+
+           while (currentNode != null) {
+               int comparison = currentNode.value.compareTo(current.value);
+               if (comparison > 0) {
+                   outputNode = currentNode;
+                   currentNode = currentNode.left;
+               } else {
+                   currentNode = currentNode.right;
+               }
+           }
+           return outputNode;
+        }
+
+        private Node<T> min() {
+            Node<T> currentNode = root;
+            while (currentNode.left != null) {
+                currentNode = currentNode.left;
+            }
+            return currentNode;
         }
 
         @Override
@@ -131,8 +189,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public void remove() {
-            // TODO
-            throw new NotImplementedError();
+            BinaryTree.this.remove(current.value);
         }
     }
 
@@ -172,8 +229,16 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     @NotNull
     @Override
     public SortedSet<T> headSet(T toElement) {
-        // TODO
-        throw new NotImplementedError();
+        BinaryTreeIterator i = new BinaryTreeIterator();
+        SortedSet outputSet = new TreeSet();
+        while (i.hasNext()) {
+            T value = i.next();
+            int comparison = value.compareTo(toElement);
+            if (comparison < 0) {
+                outputSet.add(value);
+            }
+        }
+        return outputSet;
     }
 
     /**
@@ -183,8 +248,16 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     @NotNull
     @Override
     public SortedSet<T> tailSet(T fromElement) {
-        // TODO
-        throw new NotImplementedError();
+        BinaryTreeIterator i = new BinaryTreeIterator();
+        SortedSet outputSet = new TreeSet();
+        while (i.hasNext()) {
+            T value = i.next();
+            int comparison = value.compareTo(fromElement);
+            if (comparison >= 0) {
+                outputSet.add(value);
+            }
+        }
+        return outputSet;
     }
 
     @Override
