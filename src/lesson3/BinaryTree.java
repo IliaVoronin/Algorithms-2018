@@ -64,6 +64,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Удаление элемента в дереве
      * Средняя
      */
+    //ресурсоемкость и трудоемкость o(n)
     @Override
     public boolean remove(Object o) {
         T t = (T) o;
@@ -143,6 +144,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          * Поиск следующего элемента
          * Средняя
          */
+        //ресурсоемкость и трудоемкость o(n)
         private Node<T> findNext() {
            Node<T> currentNode;
            Node<T> outputNode = null;
@@ -187,6 +189,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          * Удаление следующего элемента
          * Сложная
          */
+        //ресурсоемкость и трудоемкость o(n)
         @Override
         public void remove() {
             BinaryTree.this.remove(current.value);
@@ -226,6 +229,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Найти множество всех элементов меньше заданного
      * Сложная
      */
+    //ресурсоемкость и трудоемкость o(n)
     @NotNull
     @Override
     public SortedSet<T> headSet(T toElement) {
@@ -245,6 +249,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Найти множество всех элементов больше или равных заданного
      * Сложная
      */
+    //ресурсоемкость и трудоемкость o(n)
     @NotNull
     @Override
     public SortedSet<T> tailSet(T fromElement) {
