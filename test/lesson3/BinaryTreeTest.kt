@@ -75,6 +75,28 @@ class BinaryTreeTest {
             }
             assertTrue(binarySet.checkInvariant())
         }
+
+        val tree1 = create()
+        tree1.add(51)
+        tree1.add(23)
+        tree1.add(54)
+        tree1.add(98)
+        tree1.add(62)
+        tree1.add(67)
+        tree1.remove(51)
+        assertEquals(5, tree1.size)
+        assertFalse(tree1.contains(51))
+
+        val tree2 = create()
+        tree2.add(51)
+        tree2.add(23)
+        tree2.add(54)
+        tree2.add(98)
+        tree2.add(62)
+        tree2.add(67)
+        tree2.remove(98)
+        assertEquals(5, tree2.size)
+        assertFalse(tree2.contains(98))
     }
 
     @Test
@@ -108,6 +130,44 @@ class BinaryTreeTest {
             while (treeIt.hasNext()) {
                 assertEquals(treeIt.next(), binaryIt.next())
             }
+        }
+
+        val list = mutableListOf<Int>()
+        list.add(43)
+        list.add(54)
+        list.add(23)
+        list.add(90)
+        list.add(73)
+        list.add(56)
+        val treeSet = TreeSet<Int>()
+        val binarySet = create()
+        for (elem in list) {
+            treeSet += elem
+            binarySet += elem
+        }
+        val treeIterator = treeSet.iterator()
+        val binaryIterator = binarySet.iterator()
+        while (treeIterator.hasNext()) {
+            assertEquals(treeIterator.next(), binaryIterator.next())
+        }
+
+        val list1 = mutableListOf<Int>()
+        list1.add(1)
+        list1.add(1)
+        list1.add(1)
+        list1.add(1)
+        list1.add(1)
+        list1.add(1)
+        val treeSet1 = TreeSet<Int>()
+        val binarySet1 = create()
+        for (elem in list) {
+            treeSet1 += elem
+            binarySet1 += elem
+        }
+        val treeIterator1 = treeSet1.iterator()
+        val binaryIterator1 = binarySet1.iterator()
+        while (treeIterator1.hasNext()) {
+            assertEquals(treeIterator1.next(), binaryIterator1.next())
         }
     }
 
